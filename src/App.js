@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import '@coreui/coreui/dist/css/coreui.min.css'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import routes from './shared/routes';
+import Home from './containers/Home';
+import ProductShop from './containers/ProductShop';
+import ProductAds from './containers/ProductAds';
+import Price from './containers/Price';
+import About from './containers/About';
+import NavBar from './components/NaviBar';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ width: "100%", height: "100%" }}>
+      <NavBar />
+      <Router>
+        <Routes>
+          <Route exact path={routes.home} element={<Home/>} />
+          <Route path={routes.productShop} element={<ProductShop />} />
+          <Route path={routes.productAds} element={<ProductAds />} />
+          <Route path={routes.price} element={<Price />} />
+          <Route path={routes.about} element={<About />} />
+        </Routes>
+      </Router>
+      <Footer />
     </div>
+
   );
 }
 

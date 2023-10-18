@@ -1,0 +1,11 @@
+.home-div {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.align-div {
+    display: flex;
+    align-items: center;
+}

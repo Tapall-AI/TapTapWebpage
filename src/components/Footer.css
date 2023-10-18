@@ -1,0 +1,10 @@
+.footer-div {
+    padding: 2%;
+    display: flex;
+    align-items: start;
+}
+
+.icon-div {
+    display: flex;
+    justify-content: space-around;
+}
