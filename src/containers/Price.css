@@ -1,0 +1,12 @@
+.price-div {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.justify-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
