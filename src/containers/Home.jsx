@@ -72,8 +72,8 @@ export default function Home() {
 
             <CContainer>
                 <CRow className="items-div">
-                    <CCol xs={3}>
-                        <p className="fs-3">TAP-TAP 产品</p>
+                    <CCol xs={3} className="items-menu-div">
+                        <p className="fs-1">TAP-TAP 产品</p>
                         <CButtonGroup vertical>
                             <CFormCheck
                                 type="radio"
