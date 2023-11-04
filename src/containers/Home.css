@@ -5,7 +5,27 @@
     justify-items: center;
 }
 
+.showcase-div {
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: space-around;
+    background: url(/public/background.png);
+}
+
 .align-div {
     display: flex;
     align-items: center;
+}
+
+.items-div {
+    display: flex;
+    height: 75vh;
+}
+
+.card-div {
+    display: flex;
+    flex-direction: column;
 }

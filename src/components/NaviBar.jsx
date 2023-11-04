@@ -32,9 +32,14 @@ export default function NavBar() {
                             <CNavLink href={routes.about}>关于我们</CNavLink>
                         </CNavItem>
                     </CNavbarNav>
-                    <CButton>
-                        立即尝试
-                    </CButton>
+                    <div>
+                        <CButton className="me-2" variant="outline" color="info">
+                            企业咨询
+                        </CButton>
+                        <CButton>
+                            立即尝试
+                        </CButton>
+                    </div>
                 </CContainer>
             </CNavbar>
         </>
