@@ -5,12 +5,12 @@ export default function NavBar() {
 
     return (
         <>
-            <CNavbar expand="lg">
+            <CNavbar className="sticky-top" expand="lg" style={{ backgroundColor: "#e3f2fd"}}>
                 <CContainer fluid>
                     <CNavbarBrand className="d-flex">
                         <img src="favicon.ico" className="d-inline-block align-top" />
                         <div>
-                            <h4>TAP-TAP</h4>
+                            <h5>TAP-ALL</h5>
                             <h5>塔普智能</h5>
                         </div>
                     </CNavbarBrand>

@@ -61,7 +61,7 @@ export default function Home() {
                 </CCarouselItem>
             </CCarousel> */}
 
-            <div className="showcase-div my-5">
+            <div className="home-intro-div my-5">
                 <div>
                     <p className="mt-5 text-center display-3 fw-bold">使用人工智能将您的图像和视频</p>
                     <p className="text-center display-3 fw-bold">提升到全新的水平</p>
@@ -73,7 +73,7 @@ export default function Home() {
             <CContainer>
                 <CRow className="items-div">
                     <CCol xs={3} className="items-menu-div">
-                        <p className="fs-1">TAP-TAP 产品</p>
+                        <p className="fs-1">TAP-ALL 产品</p>
                         <CButtonGroup vertical>
                             <CFormCheck
                                 type="radio"
