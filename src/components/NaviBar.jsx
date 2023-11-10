@@ -10,8 +10,8 @@ export default function NavBar() {
                     <CNavbarBrand className="d-flex">
                         <img src="favicon.ico" className="d-inline-block align-top" />
                         <div>
-                            <h5>TAP-ALL</h5>
-                            <h5>塔普智能</h5>
+                            <p className="fs-5 fw-bold mb-0">TAP-ALL</p>
+                            <p className="fs-5 fw-bold mb-0">塔普智能</p>
                         </div>
                     </CNavbarBrand>
                     <CNavbarNav>

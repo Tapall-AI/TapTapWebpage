@@ -12,14 +12,18 @@ export default function Home() {
     const handleItemChange = (event) => {
         let id = event.target.id;
         setItemType(id);
-        document.getElementById("card-" + id).scrollIntoView({ behavior: "smooth" });
+        console.log("id: ", id)
+        let cardContainer = document.getElementById("card-container");
+        let targetCard = document.getElementById("card-" + id);
+        targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        // cardContainer.scrollIntoView({ behavior: "smooth"});
     }
 
     useEffect(() => {
         const options = {
           root: null,
           rootMargin: '0px',
-          threshold: 0.7, // Adjust this threshold as needed
+          threshold: 0.8, // Adjust this threshold as needed
         };
       
         const observer = new IntersectionObserver((entries) => {
@@ -97,7 +101,7 @@ export default function Home() {
                             />
                         </CButtonGroup>
                     </CCol>
-                    <CCol xs={9} style={{ maxHeight: "75vh", overflowY: "scroll" }}>
+                    <CCol id="card-container" xs={9} style={{ height: "75vh", overflowY: "scroll" }}>
                         <div id="card-tap4shop" ref={tap4shopRef} className="card-div my-5">
                             <p className="display-4">Tap4Shop</p>
                             <p className="fs-3">Tap4Shop can identify the shopping item in the screen and get you the link to the item.</p>
