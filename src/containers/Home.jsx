@@ -12,11 +12,16 @@ export default function Home() {
     const handleItemChange = (event) => {
         let id = event.target.id;
         setItemType(id);
-        console.log("id: ", id)
-        let cardContainer = document.getElementById("card-container");
-        let targetCard = document.getElementById("card-" + id);
-        targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        // console.log("id: ", id)
+        // let cardContainer = document.getElementById("card-container");
+        // let targetCard = document.getElementById("card-" + id);
+        // targetCard.scrollIntoView({ behavior: "smooth", block: "center" });
         // cardContainer.scrollIntoView({ behavior: "smooth"});
+        if (id === 'tap4shop' && tap4shopRef.current) {
+            tap4shopRef.current.scrollIntoView({ behavior: 'smooth' });
+        } else if (id === 'tap4ad' && tap4adRef.current) {
+            tap4adRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 
     useEffect(() => {
