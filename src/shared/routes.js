@@ -3,5 +3,6 @@ export default {
     productShop: "/productShop",
     productAds: "/productAds",
     price: "/price",
-    about: "/about"
+    about: "/about",
+    platform: "/platform"
 };
