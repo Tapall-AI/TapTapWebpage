@@ -35,36 +35,39 @@ function Platform(props) {
     const [selectedBackground, setSelectedBackground] = useState(null);
 
     const handleVideoUpload = () => {
-        let t = 0;
         let videoUploadInput = document.getElementById('video-upload');
         let file = videoUploadInput.files[0];
 
-        // split the video into key frames and store in keyFrames
-        const video = document.createElement('video');
-        video.src = URL.createObjectURL(file);
+        if (file) {
+            // split the video into key frames and store in keyFrames
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
 
-        video.addEventListener('loadeddata', async () => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            const { videoWidth, videoHeight } = video;
+            video.addEventListener('loadeddata', async () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                const { videoWidth, videoHeight } = video;
 
-            canvas.width = videoWidth;
-            canvas.height = videoHeight;
+                canvas.width = videoWidth;
+                canvas.height = videoHeight;
 
-            const interval = video.duration / framesNum; // Set the interval to capture frames (in seconds)
-            const frames = [];
+                const interval = video.duration / framesNum; // Set the interval to capture frames (in seconds)
+                const frames = [];
 
-            for (t = 0; t < video.duration; t += interval) {
-                video.currentTime = t;
-                await new Promise((resolve) => video.addEventListener('seeked', resolve));
-                context.drawImage(video, 0, 0, videoWidth, videoHeight);
-                const dataURL = canvas.toDataURL('image/jpeg');
-                frames.push(dataURL);
-            }
+                for (let t = 0; t < video.duration; t += interval) {
+                    video.currentTime = t;
+                    await new Promise((resolve) => video.addEventListener('seeked', resolve));
+                    context.drawImage(video, 0, 0, videoWidth, videoHeight);
+                    const dataURL = canvas.toDataURL('image/jpeg');
+                    frames.push(dataURL);
+                }
 
-            setKeyFrames(frames);
-            setSelectedFrame(frames[0]);
-        });
+                setKeyFrames(frames);
+                setSelectedFrame(frames[0]);
+            });
+
+            videoRef.current.src = video.src;
+        }
     }
 
     const handleImageClick = (event) => {
