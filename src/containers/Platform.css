@@ -3,3 +3,18 @@
     flex-direction: row;
     justify-content: space-around;
 }
+
+.selected-frame-div {
+    position: relative;
+}
+
+.frames-div {
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.color-background-div {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+}
