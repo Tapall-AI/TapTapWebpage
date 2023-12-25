@@ -4,5 +4,6 @@ export default {
     productAds: "/productAds",
     price: "/price",
     about: "/about",
-    platform: "/platform"
+    platform: "/platform",
+    metaHumanPlatform: "/metaHumanPlatform"
 };

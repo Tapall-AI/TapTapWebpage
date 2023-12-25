@@ -1,0 +1,31 @@
+.meta-human-platform {
+    width: 80vw;
+}
+
+.video-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.function-bar {
+    display: flex;
+    justify-content: center;
+}
+
+.function-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-function-div {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.detected-faces-div {
+    width: fit-content;
+    max-height: 250px;
+    overflow: scroll;
+}

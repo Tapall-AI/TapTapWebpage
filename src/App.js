@@ -10,6 +10,7 @@ import About from './containers/About';
 import NavBar from './components/NaviBar';
 import Footer from './components/Footer';
 import Platform from './containers/Platform';
+import MetaHumanPlatform from './containers/MetaHumanPlatform';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path={routes.price} element={<Price />} />
           <Route path={routes.about} element={<About />} />
           <Route path={routes.platform} element={<Platform />} />
+          <Route path={routes.metaHumanPlatform} element={<MetaHumanPlatform />} />
         </Routes>
       </Router>
       <Footer />
