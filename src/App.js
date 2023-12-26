@@ -14,7 +14,7 @@ import MetaHumanPlatform from './containers/MetaHumanPlatform';
 
 function App() {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
+    <div className='App'>
       <NavBar />
       <Router>
         <Routes>

@@ -2,9 +2,10 @@
     width: 80vw;
 }
 
-.video-div {
-    display: flex;
-    flex-direction: column;
+.display-div {
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .function-bar {

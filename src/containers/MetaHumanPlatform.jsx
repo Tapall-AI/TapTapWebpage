@@ -69,9 +69,10 @@ function MetaHumanPlatform() {
 
     return (
         <div className="meta-human-platform mx-auto my-5">
-            <p className="h2 my-4">Tap-All: meta human</p>
-            <Grid container>
-                <Grid className="p-3" item xs={5}>
+            <p className="display-6 my-4">Tap-All: meta human</p>
+            <Grid container columns={25}>
+                <Grid className="display-div p-4" item xs={12}>
+                    {/* <p className="fw-bold">视频上传</p> */}
                     <video ref={videoRef} controls width="100%" />
                     <div className="function-bar my-3">
                         <label htmlFor="video-upload">
@@ -84,7 +85,7 @@ function MetaHumanPlatform() {
                     </div>
                 </Grid>
                 <Grid item xs={1}></Grid>
-                <Grid className="p-3" item xs={6}>
+                <Grid className="display-div p-4" item xs={12}>
                     <div className="function-bar mb-4">
                         <Button variant={functionMode === "image" ? "contained" : "outlined"} onClick={() => changeMode("image")}>人脸替换</Button>
                         <Button variant={functionMode === "text" ? "contained" : "outlined"} onClick={() => changeMode("text")}>文本驱动</Button>
