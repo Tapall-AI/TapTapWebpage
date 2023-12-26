@@ -1,5 +1,6 @@
 .meta-human-platform {
     width: 80vw;
+    height: 100vh;
 }
 
 .display-div {
@@ -29,4 +30,15 @@
     width: fit-content;
     max-height: 250px;
     overflow: scroll;
+}
+
+.generated-speech-div {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-height: 250px;
+    overflow: scroll;
+    border: 2px solid grey;
+    border-radius: 15px;
+    padding: 10px;
 }

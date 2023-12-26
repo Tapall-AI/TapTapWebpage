@@ -100,7 +100,7 @@ function MetaHumanPlatform() {
                                             <p className="h-4">上传图片</p>
                                             <p className="h-4">目标人脸</p>
                                         </div>
-                                        <div className="image-function-div">
+                                        <div className="image-function-div mb-4">
                                             <input style={{ display: "none" }} type="file" id="image-upload" accept="image/*" onChange={handleImageUpload} />
                                             {/* <img src={uploadedImage} width={imageWidth} height={imageHeight} /> */}
                                             <label htmlFor="image-upload">
@@ -123,7 +123,7 @@ function MetaHumanPlatform() {
                                                 ))}
                                             </div>
                                         </div>
-                                        <Button className="mx-auto my-5" variant="outlined" onClick={handleSubsituteFace}>开始替换</Button>
+                                        <Button className="mx-auto" variant="outlined" onClick={handleSubsituteFace}>开始替换</Button>
                                     </div>
                                 );
                             case "text":
@@ -141,18 +141,20 @@ function MetaHumanPlatform() {
                                             <Button className="mx-auto my-3" variant="outlined" onClick={handleText2Speech}>生成语音</Button>
                                         </div>
                                         <div className="d-flex flex-column">
-                                            {generatedSpeeches.map((speech, index) => (
-                                                <Chip
-                                                    className="mx-auto my-1"
-                                                    key={index}
-                                                    variant={selectedGeneratedSpeech === speech ? "filled" : "outlined"}
-                                                    color="primary"
-                                                    label={speech}
-                                                    onClick={() => handleSelectGeneratedSpeech(speech)}
-                                                />
-                                            ))}
+                                            <div className="generated-speech-div mx-auto">
+                                                {generatedSpeeches.map((speech, index) => (
+                                                    <Chip
+                                                        className="mx-auto my-1"
+                                                        key={index}
+                                                        variant={selectedGeneratedSpeech === speech ? "filled" : "outlined"}
+                                                        color="primary"
+                                                        label={speech}
+                                                        onClick={() => handleSelectGeneratedSpeech(speech)}
+                                                    />
+                                                ))}
+                                            </div>
                                             {selectedGeneratedSpeech &&
-                                                <Button className="mx-auto my-4" variant="contained" onClick={handleSubsituteSpeech}>驱动视频</Button>}
+                                                <Button className="mx-auto mt-4" variant="contained" onClick={handleSubsituteSpeech}>驱动视频</Button>}
                                         </div>
                                     </div>
                                 );
