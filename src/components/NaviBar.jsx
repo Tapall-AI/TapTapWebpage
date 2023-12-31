@@ -23,6 +23,7 @@ export default function NavBar() {
                             <CDropdownMenu>
                                 <CDropdownItem href={routes.productShop}>Tap4Shop</CDropdownItem>
                                 <CDropdownItem href={routes.productAds}>Tap4Ads</CDropdownItem>
+                                <CDropdownItem href={routes.metaHumanPlatform}>Meta-Human</CDropdownItem>
                             </CDropdownMenu>
                         </CDropdown>
                         <CNavItem>

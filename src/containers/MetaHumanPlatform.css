@@ -32,13 +32,24 @@
     overflow: scroll;
 }
 
-.generated-speech-div {
+.audio-items-div {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    max-height: 250px;
+    align-items: start;
+}
+
+.generated-audio-div {
+    /* display: flex;
+    flex-direction: column; */
+    width: 80%;
+    min-height: 50px;
+    max-height: 300px;
     overflow: scroll;
     border: 2px solid grey;
     border-radius: 15px;
     padding: 10px;
+}
+
+.select-dialog-div {
+    width: 40vw;
 }
