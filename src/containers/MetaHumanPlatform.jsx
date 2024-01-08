@@ -10,10 +10,13 @@ function MetaHumanPlatform() {
     const videoHeight = 400;
     const videoRef = useRef(null);
     const [functionMode, setFunctionMode] = useState("");
+    // Video
     const [uploadedImage, setUploadImage] = useState(null);
     const [videoUploaded, setVideoUploaded] = useState(false);
     const [detectedFaces, setDetectedFaces] = useState([]);
     const [selectedFace, setSelectedFace] = useState(null);
+    // Audio
+    const [uploadedAudio, setUploadedAudio] = useState(null);
     const [generatedAudios, setGeneratedAudios] = useState([]);
     const [selectedGeneratedAudio, setSelectedGeneratedAudio] = useState(null);
     const [openAudioMimicDialog, setOpenAudioMimicDialog] = useState(false);
@@ -26,29 +29,60 @@ function MetaHumanPlatform() {
 
     // 用户上传视频，传给后端作为全局变量
     const handleVideoUpload = (event) => {
+        console.log("上传视频");
+
         let file = event.target.files[0];
 
         if (file) {
-            const video = document.createElement('video');
-            video.src = URL.createObjectURL(file);
-            videoRef.current.src = video.src;
-            setVideoUploaded(true);
+            const reader = new FileReader();
 
-            axios
-                .post(window.BACKEND_ADDRESS + "/upload-video")
-                .then((resp) => {
+            reader.onload = (e) => {
+                const base64Video = e.target.result;
+                setVideoUploaded(true);
 
-                })
+                // Set the video component's src attribute
+                videoRef.current.src = base64Video;
+                const sendVideo = reader.result.split(',')[1]; // Remove the data URL part
+
+                axios
+                    .post(window.BACKEND_ADDRESS + "/upload-video", {
+                        video: sendVideo
+                    })
+                    .then((resp) => {
+                        console.log(resp);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            };
+
+            // Read the contents of the video file as a Data URL
+            reader.readAsDataURL(file);
         }
     }
 
     // 用户上传图片，传给后端作为全局变量
     const handleImageUpload = (event) => {
+        console.log("上传人脸图片");
+
         let image = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = (e) => {
             setUploadImage(e.target.result);
+            const sendImage = reader.result.split(',')[1]; // Remove the data URL part
+
+            axios
+                .post(window.BACKEND_ADDRESS + "/upload-face", {
+                    // status: 200,
+                    face: sendImage
+                })
+                .then((resp) => {
+                    console.log(resp);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
         };
 
         reader.readAsDataURL(image);
@@ -65,19 +99,37 @@ function MetaHumanPlatform() {
 
     // 点击检测，后端返回可进行更换的人脸目标
     const handleDetectFace = () => {
+        console.log("人脸检测");
+
+        // TODO: 有参数/无参数？
         axios
             .post(window.BACKEND_ADDRESS + "/face-detect")
             .then((resp) => {
-
+                console.log(resp);
+            })
+            .catch((error) => {
+                console.error(error);
             })
     }
 
     // 点击替换，后端返回修改后视频
     const handleSubsituteFace = () => {
-        axios
-            .post(window.BACKEND_ADDRESS + "/upload-face")
-            .then((resp) => {
+        console.log("人脸替换");
+        const sendVideo = videoRef.current.src.split(',')[1];
+        const sendUploadFace = uploadedImage.split(',')[1];
+        const sendTargetFace = selectedFace.split(',')[1];
 
+        axios
+            .post(window.BACKEND_ADDRESS + "/face-swap", {
+                video: sendVideo,
+                face: sendUploadFace,
+                target: sendTargetFace
+            })
+            .then((resp) => {
+                console.log(resp);
+            })
+            .catch((error) => {
+                console.error(error);
             })
     }
 
@@ -87,12 +139,29 @@ function MetaHumanPlatform() {
     }
 
     // 上传语音
-    const handleUploadAudio = () => {
-        axios
-            .post(window.BACKEND_ADDRESS + "/upload-face")
-            .then((resp) => {
+    const handleUploadAudio = (event) => {
+        console.log("上传语音");
 
+        let audio = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            setUploadedAudio(e.target.result);
+            const sendAudio = reader.result.split(',')[1]; // Remove the data URL part
+
+            axios
+                .post(window.BACKEND_ADDRESS + "/upload-audio", {
+                    audio: sendAudio
             })
+                .then((resp) => {
+                    console.log(resp);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+        };
+
+        reader.readAsDataURL(audio);
     }
 
     // 语音模仿
@@ -120,10 +189,21 @@ function MetaHumanPlatform() {
 
     // 语音驱动：嘴形模仿，后端返回视频
     const handleSubsituteAudio = () => {
-        axios
-            .post(window.BACKEND_ADDRESS + "/video-talk")
-            .then((resp) => {
+        console.log("语音驱动");
 
+        const sendVideo = videoRef.current.src.split(',')[1];
+        const sendAudio = uploadedAudio.split(',')[1];
+
+        axios
+            .post(window.BACKEND_ADDRESS + "/video-talk", {
+                video: sendVideo,
+                audio: sendAudio
+            })
+            .then((resp) => {
+                console.log(resp);
+            })
+            .catch((error) => {
+                console.error(error);
             })
     }
 
