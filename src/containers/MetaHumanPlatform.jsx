@@ -16,7 +16,6 @@ function MetaHumanPlatform() {
     const [detectedFaces, setDetectedFaces] = useState([]);
     const [selectedFace, setSelectedFace] = useState(null);
     // Audio
-    const [uploadedAudio, setUploadedAudio] = useState(null);
     const [generatedAudios, setGeneratedAudios] = useState([]);
     const [selectedGeneratedAudio, setSelectedGeneratedAudio] = useState(null);
     const [openAudioMimicDialog, setOpenAudioMimicDialog] = useState(false);
@@ -37,11 +36,10 @@ function MetaHumanPlatform() {
             const reader = new FileReader();
 
             reader.onload = (e) => {
-                const base64Video = e.target.result;
                 setVideoUploaded(true);
 
                 // Set the video component's src attribute
-                videoRef.current.src = base64Video;
+                videoRef.current.src = reader.result;
                 const sendVideo = reader.result.split(',')[1]; // Remove the data URL part
 
                 axios
@@ -69,7 +67,7 @@ function MetaHumanPlatform() {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-            setUploadImage(e.target.result);
+            setUploadImage(reader.result);
             const sendImage = reader.result.split(',')[1]; // Remove the data URL part
 
             axios
@@ -100,12 +98,20 @@ function MetaHumanPlatform() {
     // 点击检测，后端返回可进行更换的人脸目标
     const handleDetectFace = () => {
         console.log("人脸检测");
+        const sendVideo = videoRef.current.src.split(',')[1];
 
-        // TODO: 有参数/无参数？
         axios
-            .post(window.BACKEND_ADDRESS + "/face-detect")
+            .post(window.BACKEND_ADDRESS + "/face-detect", {
+                video: sendVideo
+            })
             .then((resp) => {
                 console.log(resp);
+                let faces = [];
+                for (const face of resp.data.data.face) {
+                    faces.push(`data:image/jpeg;base64,${face}`);
+                }
+                console.log("detected", faces);
+                setDetectedFaces(faces);
             })
             .catch((error) => {
                 console.error(error);
@@ -119,6 +125,10 @@ function MetaHumanPlatform() {
         const sendUploadFace = uploadedImage.split(',')[1];
         const sendTargetFace = selectedFace.split(',')[1];
 
+        console.log("video", videoRef.current.src.split(","));
+        console.log("face", uploadedImage.split(","));
+        console.log("target", selectedFace.split(","));
+
         axios
             .post(window.BACKEND_ADDRESS + "/face-swap", {
                 video: sendVideo,
@@ -127,6 +137,7 @@ function MetaHumanPlatform() {
             })
             .then((resp) => {
                 console.log(resp);
+                videoRef.current.src = resp.data.data.result;
             })
             .catch((error) => {
                 console.error(error);
@@ -146,15 +157,18 @@ function MetaHumanPlatform() {
         const reader = new FileReader();
 
         reader.onload = (e) => {
-            setUploadedAudio(e.target.result);
             const sendAudio = reader.result.split(',')[1]; // Remove the data URL part
 
             axios
                 .post(window.BACKEND_ADDRESS + "/upload-audio", {
                     audio: sendAudio
-            })
+                })
                 .then((resp) => {
                     console.log(resp);
+                    setGeneratedAudios((prev) => ([...prev, {
+                        name: audio.name,
+                        content: sendAudio
+                    }]))
                 })
                 .catch((error) => {
                     console.error(error);
@@ -192,7 +206,7 @@ function MetaHumanPlatform() {
         console.log("语音驱动");
 
         const sendVideo = videoRef.current.src.split(',')[1];
-        const sendAudio = uploadedAudio.split(',')[1];
+        const sendAudio = selectedGeneratedAudio.content;
 
         axios
             .post(window.BACKEND_ADDRESS + "/video-talk", {
@@ -201,6 +215,7 @@ function MetaHumanPlatform() {
             })
             .then((resp) => {
                 console.log(resp);
+                videoRef.current.src = resp.data.data.result;
             })
             .catch((error) => {
                 console.error(error);
@@ -208,6 +223,7 @@ function MetaHumanPlatform() {
     }
 
     const handleSelectGeneratedAudio = (audio) => {
+        console.log("select", audio);
         setSelectedGeneratedAudio(audio);
     }
 
@@ -251,7 +267,7 @@ function MetaHumanPlatform() {
                                                 <Avatar src={uploadedImage} sx={{ width: imageHeight, height: imageWidth, cursor: 'pointer' }} />
                                             </label>
                                             <div className="detected-faces-div">
-                                                {detectedFaces.map((face, index) => (
+                                                {detectedFaces?.map((face, index) => (
                                                     <Avatar
                                                         key={index}
                                                         src={face}
@@ -314,7 +330,7 @@ function MetaHumanPlatform() {
                                                                 >
                                                                     {generatedAudios.map((audio, index) => (
                                                                         <MenuItem key={index} value={audio}>
-                                                                            {audio}
+                                                                            {audio.name}
                                                                         </MenuItem>
                                                                     ))}
                                                                 </Select>
@@ -331,7 +347,7 @@ function MetaHumanPlatform() {
                                                                 >
                                                                     {generatedAudios.map((audio, index) => (
                                                                         <MenuItem key={index} value={audio}>
-                                                                            {audio}
+                                                                            {audio.name}
                                                                         </MenuItem>
                                                                     ))}
                                                                 </Select>
@@ -354,7 +370,7 @@ function MetaHumanPlatform() {
                                                         key={index}
                                                         variant={selectedGeneratedAudio === audio ? "filled" : "outlined"}
                                                         color="primary"
-                                                        label={audio}
+                                                        label={audio.name}
                                                         onClick={() => handleSelectGeneratedAudio(audio)}
                                                     />
                                                 ))}
