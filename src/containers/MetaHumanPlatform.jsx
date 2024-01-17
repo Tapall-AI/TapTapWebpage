@@ -137,7 +137,7 @@ function MetaHumanPlatform() {
             })
             .then((resp) => {
                 console.log(resp);
-                videoRef.current.src = resp.data.data.result;
+                videoRef.current.src = `data:video/mp4;base64,${resp.data.data.result}`;
             })
             .catch((error) => {
                 console.error(error);
@@ -215,7 +215,7 @@ function MetaHumanPlatform() {
             })
             .then((resp) => {
                 console.log(resp);
-                videoRef.current.src = resp.data.data.result;
+                videoRef.current.src = `data:video/mp4;base64,${resp.data.data.result}`;
             })
             .catch((error) => {
                 console.error(error);
@@ -283,7 +283,7 @@ function MetaHumanPlatform() {
                                                 ))}
                                             </div>
                                         </div>
-                                        <div className="d-flex">
+                                        <div className="d-flex">    
                                             <Button className="mx-auto" variant="outlined" onClick={handleSubsituteFace}>替换人脸</Button>
                                             <Button className="mx-auto" variant="outlined" onClick={handleDetectFace}>检测人脸</Button>
                                         </div>
